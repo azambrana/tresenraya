@@ -1,0 +1,58 @@
+@startuml
+
+TicTacToeGame *-- TicTacToeController
+
+' MVC
+class TicTacToeGame {
+    - controller: TicTacToeController
+}
+
+' Controller
+
+class TicTacToeController implements MouseListener {
+    - model: TicTacToeModel
+    - view: TicTacToeView
+
+    + mouseClicked(e: MouseEvent)
+}
+
+' Model
+class TicTacToeModel {
+    - cells: String[][]
+
+    + setCell(row: int, col: int, value: String)
+    + getCell(row: int, col: int): String
+    + reset()
+    + isGameOver(): boolean
+    + getWinner(): String
+    + isDraw(): boolean
+    - isValidMove(row: int, col: int): boolean
+}
+
+class Player {
+    - name: String
+    ' O or X
+    - symbol: String
+
+    + Player(name: String, symbol: String)
+    + getName(): String
+    + getSymbol(): String
+}
+
+' View
+class TicTacToeBoardView {
+    - model: TicTacToeModel
+
+}
+
+class TicTacToeView extends JFrame {
+    - width: int
+    - height: int
+    - boardView: TicTacToeBoardView
+
+    + TicTacToeView()
+    + TicTacToeView(width: int, height: int)
+
+    + setController(controller: TicTacToeController)
+}
+@enduml
